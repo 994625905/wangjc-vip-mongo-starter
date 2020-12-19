@@ -13,7 +13,7 @@
 
     <groupId>vip.wangjc</groupId>
     <artifactId>wangjc-vip-mongo-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
 
     <name>wangjc-vip</name>
     <description>wangjc-vip</description>
@@ -210,13 +210,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
-        <!--spring的配置-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
 
     </dependencies>
