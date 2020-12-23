@@ -14,8 +14,8 @@ import org.springframework.core.type.AnnotationMetadata;
 import vip.wangjc.mongo.annotation.MongoDB;
 import vip.wangjc.mongo.annotation.MongoScanRegister;
 import vip.wangjc.mongo.annotation.MongoTable;
-import vip.wangjc.mongo.factory.MongoClassFieldPoolFactory;
-import vip.wangjc.mongo.factory.MongoCollectionPoolFactory;
+import vip.wangjc.mongo.pool.MongoCollectionPool;
+import vip.wangjc.mongo.pool.MongoEntityClassFieldPool;
 
 import java.util.*;
 
@@ -33,6 +33,7 @@ public class ImportMongoScanRegister implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+
         AnnotationAttributes attributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(MongoScanRegister.class.getName()));
 
         /** 获取指定的扫描包，配置文件的路径 */
@@ -62,13 +63,13 @@ public class ImportMongoScanRegister implements ImportBeanDefinitionRegistrar {
             MongoTable mongoTable = clazz.getAnnotation(MongoTable.class);
 
             /** 设置类的字段数组到缓存池 */
-            MongoClassFieldPoolFactory.setFieldsCache(clazz);
+            MongoEntityClassFieldPool.setFieldsCache(clazz);
 
             if(mongoDB == null || mongoTable == null || this.mongoDS == null){
                 continue;
             }
             /** 设置连接到缓存池 */
-            MongoCollectionPoolFactory.setCollection(this.mongoDS, mongoDB.value(), mongoTable.value());
+            MongoCollectionPool.setCollection(this.mongoDS, mongoDB.value(), mongoTable.value());
         }
 
     }

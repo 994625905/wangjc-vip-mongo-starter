@@ -1,4 +1,4 @@
-package vip.wangjc.mongo.factory;
+package vip.wangjc.mongo.pool;
 
 import cn.hutool.db.nosql.mongo.MongoDS;
 import com.mongodb.client.MongoCollection;
@@ -17,9 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @projectName wangjc-vip-mongo-starter
  * @date 2020/12/17 - 16:56
  */
-public class MongoCollectionPoolFactory {
+public class MongoCollectionPool {
 
-    private static final Logger logger = LoggerFactory.getLogger(MongoCollectionPoolFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(MongoCollectionPool.class);
 
     /**
      * 连接的缓存池

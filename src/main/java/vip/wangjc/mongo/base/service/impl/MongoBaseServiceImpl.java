@@ -13,8 +13,8 @@ import vip.wangjc.mongo.annotation.MongoDB;
 import vip.wangjc.mongo.annotation.MongoTable;
 import vip.wangjc.mongo.base.entity.MongoBaseEntity;
 import vip.wangjc.mongo.base.service.IMongoBaseService;
-import vip.wangjc.mongo.factory.MongoClassFieldPoolFactory;
-import vip.wangjc.mongo.factory.MongoCollectionPoolFactory;
+import vip.wangjc.mongo.pool.MongoCollectionPool;
+import vip.wangjc.mongo.pool.MongoEntityClassFieldPool;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -50,7 +50,7 @@ public class MongoBaseServiceImpl<T extends MongoBaseEntity> implements IMongoBa
             synchronized (this){
                 MongoDB mongoDB = this.getEntityClass().getAnnotation(MongoDB.class);
                 MongoTable mongoTable = this.getEntityClass().getAnnotation(MongoTable.class);
-                this.collection = MongoCollectionPoolFactory.getCollection(mongoDB.value(),mongoTable.value());
+                this.collection = MongoCollectionPool.getCollection(mongoDB.value(),mongoTable.value());
             }
         }
         return this.collection;
@@ -263,7 +263,7 @@ public class MongoBaseServiceImpl<T extends MongoBaseEntity> implements IMongoBa
             if(entity == null){
                 return query;
             }
-            Field[] fields = MongoClassFieldPoolFactory.getFields(this.getEntityClass());
+            Field[] fields = MongoEntityClassFieldPool.getFields(this.getEntityClass());
             for(Field f:fields){
 
                 /** 过滤掉序列号ID */
@@ -295,7 +295,7 @@ public class MongoBaseServiceImpl<T extends MongoBaseEntity> implements IMongoBa
     private T getEntityByDocument(Document document) {
         try {
             T t = this.getEntityClass().newInstance();
-            Field[] fields = MongoClassFieldPoolFactory.getFields(this.getEntityClass());
+            Field[] fields = MongoEntityClassFieldPool.getFields(this.getEntityClass());
             for(Field f:fields){
 
                 if(document.get(f.getName()) == null){

@@ -128,9 +128,9 @@
   	│      │              ├─exception
   	│      │              │      MongoException.java （异常）
   	│      │              │
-  	│      │              ├─factory
-  	│      │              │      MongoClassFieldPoolFactory.java （字段数据缓存池：初始化时反射获取并存放每个mongo实体的字段数组，）
-  	│      │              │      MongoCollectionPoolFactory.java （mongo连接的缓存池，初始化时对每一个mongo实体建立并存放连接）
+  	│      │              ├─pool
+  	│      │              │      MongoEntityClassFieldPool.java （字段数据缓存池：初始化时反射获取并存放每个mongo实体的字段数组，）
+  	│      │              │      MongoCollectionPool.java （mongo连接的缓存池，初始化时对每一个mongo实体建立并存放连接）
   	│      │              │
   	│      │              ├─register
   	│      │              │      ImportMongoScanRegister.java （MongoDB的注册类，包括加载配置文件，初始化数据源，初始化缓存池……核心！）
@@ -303,3 +303,5 @@ public Object selectOne(){
     return richTexts;
 }
 ```
+如果想测试Flush的话，为了保证与Caches注解的key一致性，需要自定义keyBuilder，我就不做演示了。
+  详情代码信息请前往开源平台，然后顺手给个star呗！

@@ -1,4 +1,4 @@
-package vip.wangjc.mongo.factory;
+package vip.wangjc.mongo.pool;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @projectName wangjc-vip-mongo-starter
  * @date 2020/12/17 - 15:21
  */
-public class MongoClassFieldPoolFactory {
+public class MongoEntityClassFieldPool {
 
-    private static final Logger logger = LoggerFactory.getLogger(MongoClassFieldPoolFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(MongoEntityClassFieldPool.class);
     /**
      * 线程安全的map
      */
