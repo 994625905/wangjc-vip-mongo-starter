@@ -4,7 +4,6 @@ import cn.hutool.db.nosql.mongo.MongoDS;
 import cn.hutool.db.nosql.mongo.MongoFactory;
 import cn.hutool.setting.GroupedMap;
 import cn.hutool.setting.Setting;
-import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -16,6 +15,7 @@ import vip.wangjc.mongo.annotation.MongoScanRegister;
 import vip.wangjc.mongo.annotation.MongoTable;
 import vip.wangjc.mongo.pool.MongoCollectionPool;
 import vip.wangjc.mongo.pool.MongoEntityClassFieldPool;
+import vip.wangjc.mongo.util.MongoUtil;
 
 import java.util.*;
 
@@ -44,20 +44,20 @@ public class ImportMongoScanRegister implements ImportBeanDefinitionRegistrar {
 
         /** 开始注册 */
         if(packages == null || packages.length == 0){
-            this.registerMongo(new Reflections("")); // 全路径扫描，从根路径开始
+            this.registerMongo(""); // 全路径扫描，从根路径开始
         }else{
             for(String pack:packages){
-                this.registerMongo(new Reflections(pack));
+                this.registerMongo(pack);
             }
         }
     }
 
     /**
      * 注册业务
-     * @param reflections
+     * @param packages
      */
-    private void registerMongo(Reflections reflections){
-        Set<Class<?>> mongoSet = reflections.getTypesAnnotatedWith(MongoDB.class);
+    private void registerMongo(String packages){
+        Set<Class<?>> mongoSet = MongoUtil.getAnnotationClasses(packages, MongoDB.class);
         for(Class<?> clazz:mongoSet){
             MongoDB mongoDB = clazz.getAnnotation(MongoDB.class);
             MongoTable mongoTable = clazz.getAnnotation(MongoTable.class);
@@ -106,4 +106,5 @@ public class ImportMongoScanRegister implements ImportBeanDefinitionRegistrar {
             e.printStackTrace();
         }
     }
+
 }

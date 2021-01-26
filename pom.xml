@@ -13,7 +13,7 @@
 
     <groupId>vip.wangjc</groupId>
     <artifactId>wangjc-vip-mongo-starter</artifactId>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
 
     <name>wangjc-vip</name>
     <description>wangjc-vip</description>
@@ -199,13 +199,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.41</version>
             <optional>true</optional>
-        </dependency>
-
-        <!--反射解析注解声明的类-->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
         </dependency>
 
         <!--spring的aop支持-->
